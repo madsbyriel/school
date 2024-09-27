@@ -82,9 +82,12 @@ def calculate_entropy_total(data, domains):
 
     return entropies
 
-def calculate_expected_entropy_elem(data, domain, domain_name, givens):
-    occurences = count_occurences_given(data, [("age", age_lt5)])
-    print(occurences)
+def calculate_expected_entropy_elem(data, domains, domain_name, given_domain_name):
+    entropy = calculate_entropy_elem(calculate_p(data, domains[domain_name], domain_name))
+    x = [(el, count_occurences_given(data, [(given_domain_name, el)])) for el in domains[given_domain_name]]
+
+    print(x)
+
 
 
 
@@ -147,4 +150,4 @@ data = [
     },
 ]
 
-print(count_occurences_given(data, [("owners", 2)]))
+calculate_expected_entropy_elem(data, domains, "acceptable", "age")
